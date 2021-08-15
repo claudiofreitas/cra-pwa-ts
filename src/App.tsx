@@ -1,7 +1,7 @@
 import React from 'react';
 import { Affix, Tabs } from 'antd';
 import './App.scss';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
@@ -12,7 +12,7 @@ const LongList: React.FC<{ type: string }> = ({ type }) => {
         .fill('a')
         .map((e, i) => {
           return (
-            <li>
+            <li key={i}>
               {type} {i}
             </li>
           );
@@ -22,6 +22,20 @@ const LongList: React.FC<{ type: string }> = ({ type }) => {
 };
 
 const TVGuide: React.FC<{}> = () => {
+  const { guideId } = useParams<any>();
+
+  let activeKey = ((): string => {
+    console.log('active');
+    switch (guideId) {
+      case 'anime':
+        return '1';
+      case 'movie':
+        return '2';
+      default:
+        return '1';
+    }
+  })();
+
   return (
     <>
       <header>
@@ -29,7 +43,7 @@ const TVGuide: React.FC<{}> = () => {
       </header>
       <main>
         <Affix>
-          <Tabs defaultActiveKey="1">
+          <Tabs defaultActiveKey={activeKey}>
             <TabPane tab="Anime" key="1">
               Anime content
               <LongList type="Anime" />
@@ -51,7 +65,7 @@ const App: React.FC<{}> = () => {
     <>
       <BrowserRouter>
         <Switch>
-          <Route>
+          <Route path="/tv-guide/:guideId">
             <TVGuide />
           </Route>
         </Switch>
