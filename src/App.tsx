@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const LongList: React.FC<{ type: string }> = ({ type }) => {
   return (
     <ul>
-      {Array<string>(300)
+      {Array<string>(17)
         .fill('a')
         .map((e, i) => {
           return (
@@ -25,7 +25,6 @@ const TVGuide: React.FC<{}> = () => {
   const { guideId } = useParams<any>();
 
   let activeKey = ((): string => {
-    console.log('active');
     switch (guideId) {
       case 'anime':
         return '1';
@@ -54,6 +53,7 @@ const TVGuide: React.FC<{}> = () => {
             </TabPane>
           </Tabs>
         </Affix>
+        <LongList type="Other" />
       </main>
       <footer>Footer</footer>
     </>
