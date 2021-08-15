@@ -1,6 +1,7 @@
 import React from 'react';
 import { Affix, Tabs } from 'antd';
 import './App.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
@@ -48,7 +49,13 @@ const TVGuide: React.FC<{}> = () => {
 const App: React.FC<{}> = () => {
   return (
     <>
-      <TVGuide />
+      <BrowserRouter>
+        <Switch>
+          <Route>
+            <TVGuide />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </>
   );
 };
