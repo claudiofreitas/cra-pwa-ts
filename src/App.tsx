@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from 'antd';
+import { Affix, Tabs } from 'antd';
 import './App.scss';
 
 const { TabPane } = Tabs;
@@ -20,28 +20,36 @@ const LongList: React.FC<{ type: string }> = ({ type }) => {
   );
 };
 
-const App: React.FC<{}> = () => {
+const TVGuide: React.FC<{}> = () => {
   return (
-    <div>
+    <>
       <header>
         <h1>TV Guide</h1>
       </header>
       <main>
-
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Anime" key="1">
-            Anime content
-            <LongList type="Anime" />
-          </TabPane>
-          <TabPane tab="Movie" key="2">
-            Movie content
-            <LongList type="Movie" />
-          </TabPane>
-        </Tabs>
-
+        <Affix>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Anime" key="1">
+              Anime content
+              <LongList type="Anime" />
+            </TabPane>
+            <TabPane tab="Movie" key="2">
+              Movie content
+              <LongList type="Movie" />
+            </TabPane>
+          </Tabs>
+        </Affix>
       </main>
       <footer>Footer</footer>
-    </div>
+    </>
+  );
+};
+
+const App: React.FC<{}> = () => {
+  return (
+    <>
+      <TVGuide />
+    </>
   );
 };
 
