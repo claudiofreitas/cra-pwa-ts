@@ -31,7 +31,8 @@ const LongList: React.FC<{ type: string }> = ({ type }) => {
 const TVGuide: React.FC<{}> = () => {
   const { guideId } = useParams<{ guideId: string }>();
   const history = useHistory();
-  if (guideId !== 'anime' && guideId !== 'movie') {
+  const allowedGuideId = ['anime', 'movie'];
+  if (!allowedGuideId.includes(guideId)) {
     history.push('/tv-guide/anime');
   }
 
