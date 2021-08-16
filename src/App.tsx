@@ -1,14 +1,21 @@
 import React from 'react';
 import { Affix, Tabs } from 'antd';
 import './App.scss';
-import { BrowserRouter, Route, Switch, useParams } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+} from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
 const LongList: React.FC<{ type: string }> = ({ type }) => {
   return (
     <ul>
-      {Array<string>(17)
+      {Array<string>(37)
         .fill('a')
         .map((e, i) => {
           return (
@@ -22,18 +29,11 @@ const LongList: React.FC<{ type: string }> = ({ type }) => {
 };
 
 const TVGuide: React.FC<{}> = () => {
-  const { guideId } = useParams<any>();
-
-  let activeKey = ((): string => {
-    switch (guideId) {
-      case 'anime':
-        return '1';
-      case 'movie':
-        return '2';
-      default:
-        return '1';
-    }
-  })();
+  const { guideId } = useParams<{ guideId: string }>();
+  const history = useHistory();
+  if (guideId !== 'anime' && guideId !== 'movie') {
+    history.push('/tv-guide/anime');
+  }
 
   return (
     <>
@@ -42,18 +42,27 @@ const TVGuide: React.FC<{}> = () => {
       </header>
       <main>
         <Affix>
-          <Tabs defaultActiveKey={activeKey}>
-            <TabPane tab="Anime" key="1">
-              Anime content
-              <LongList type="Anime" />
-            </TabPane>
-            <TabPane tab="Movie" key="2">
-              Movie content
-              <LongList type="Movie" />
-            </TabPane>
+          <Tabs
+            defaultActiveKey={guideId}
+            onChange={(key) => {
+              history.push(`/tv-guide/${key}`);
+            }}
+          >
+            <TabPane tab="Anime" key="anime" />
+            <TabPane tab="Movie" key="movie" />
           </Tabs>
         </Affix>
-        <LongList type="Other" />
+        {guideId === 'movie' ? (
+          <>
+            Movie content
+            <LongList type="Movie" />
+          </>
+        ) : (
+          <>
+            Anime content
+            <LongList type="Anime" />
+          </>
+        )}
       </main>
       <footer>Footer</footer>
     </>
@@ -67,6 +76,9 @@ const App: React.FC<{}> = () => {
         <Switch>
           <Route path="/tv-guide/:guideId">
             <TVGuide />
+          </Route>
+          <Route path="/tv-guide">
+            <Redirect to="/tv-guide/anime" />
           </Route>
         </Switch>
       </BrowserRouter>
