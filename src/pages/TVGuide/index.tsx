@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Affix, Tabs } from 'antd';
-import { LongList } from './LongList';
+import { MovieList } from './MovieList';
+import { AnimeList } from './AnimeList';
 
 const { TabPane } = Tabs;
 
@@ -30,17 +31,7 @@ export const TVGuide: React.FC<{}> = () => {
             <TabPane tab="Movie" key="movie" />
           </Tabs>
         </Affix>
-        {guideId === 'movie' ? (
-          <>
-            Movie content
-            <LongList type="Movie" />
-          </>
-        ) : (
-          <>
-            Anime content
-            <LongList type="Anime" />
-          </>
-        )}
+        {guideId === 'movie' ? <MovieList /> : <AnimeList />}
       </main>
       <footer>Footer</footer>
     </>
