@@ -7,10 +7,10 @@ import { AnimeList } from './AnimeList';
 const { TabPane } = Tabs;
 
 export const TVGuide: React.FC<{}> = () => {
-  const { guideId } = useParams<{ guideId: string }>();
+  const { guideSubPage1 } = useParams<{ guideSubPage1: string }>();
   const history = useHistory();
   const allowedGuideId = ['anime', 'movie'];
-  if (!allowedGuideId.includes(guideId)) {
+  if (!allowedGuideId.includes(guideSubPage1)) {
     history.push('/tv-guide/anime');
   }
 
@@ -22,7 +22,7 @@ export const TVGuide: React.FC<{}> = () => {
       <main>
         <Affix>
           <Tabs
-            defaultActiveKey={guideId}
+            defaultActiveKey={guideSubPage1}
             onChange={(key) => {
               history.push(`/tv-guide/${key}`);
             }}
@@ -31,7 +31,7 @@ export const TVGuide: React.FC<{}> = () => {
             <TabPane tab="Movie" key="movie" />
           </Tabs>
         </Affix>
-        {guideId === 'movie' ? <MovieList /> : <AnimeList />}
+        {guideSubPage1 === 'movie' ? <MovieList /> : <AnimeList />}
       </main>
       <footer>Footer</footer>
     </>
