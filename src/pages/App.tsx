@@ -1,10 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 import './App.scss';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { TVGuideRoute } from './TVGuide/TVGuideRoute';
 import Map from './Map';
+import Shopping from './Shopping';
+import { CartProvider } from '../context/CartContext';
 
-const App: React.FC<{}> = () => {
+const App: FC<{}> = () => {
   return (
     <>
       <BrowserRouter>
@@ -15,7 +17,12 @@ const App: React.FC<{}> = () => {
           <Route path="/map">
             <Map />
           </Route>
-          <Redirect to="/map" />
+          <Route path="/shopping">
+            <CartProvider>
+              <Shopping />
+            </CartProvider>
+          </Route>
+          <Redirect to="/shopping" />
         </Switch>
       </BrowserRouter>
     </>
