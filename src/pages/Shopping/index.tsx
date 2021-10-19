@@ -1,5 +1,4 @@
-import { FC, useContext, useMemo, useState } from 'react';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { FC, useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 
 // From: https://codesandbox.io/s/github/btholt/react-hooks-examples-v3/tree/master/?module=/src/Memo.js&file=/src/Memo.js:273-322
@@ -27,7 +26,10 @@ const Shopping: FC = () => {
         }}
       >
         Add
-      </button> <br /><br /><br />
+      </button>{' '}
+      <br />
+      <br />
+      <br />
       Fibonacci of {num} is {fib}. <br />
       <button onClick={() => setNum(num + 1)}>Incr num</button>
     </>
